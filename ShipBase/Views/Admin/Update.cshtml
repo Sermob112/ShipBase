@@ -1,0 +1,70 @@
+﻿@model ShipBase.Domain.ViewModels.User.UserViewModel
+
+<form id="formUpdateUser">
+    <div class="row">
+        <div class="form-group col-md-4">
+            <input asp-for="Id" hidden />
+            <label asp-for="@Model.Name" class="col-form-label text-black-50"></label>
+            <input asp-for="@Model.Name" type="text" class="form-control">
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Password" class="col-form-label text-black-50"></label>
+            <input asp-for="@Model.Password" type="password" class="form-control" />
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Role" class="col-form-label text-black-50"></label>
+            <select asp-for="@Model.Role" class="form-control" id="userRoleId"></select>
+        </div>
+    </div>
+</form>
+
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+<script>
+    $('#userRoleId').select2({
+        placeholder: "Выберите роль",
+        minimumInputLength: 0,
+        allowClear: true,
+        ajax: {
+            type: "POST",
+            url: "@Url.Action("GetRoles", "Admin")",
+            dataType: "json",
+            processResults: function (result) {
+                return {
+                    results: $.map(result, function (val, index) {
+                        return {
+                            id: index,
+                            text: val
+                        };
+                    }),
+                };
+            }
+        }
+    });
+
+    $('#saveBtn').on('click', function (e) {
+        e.preventDefault();
+        const data = $('#formUpdateUser').serialize()
+        $.ajax({
+            url: '@Url.Action("Update", "Admin")',
+            type: 'POST',
+            data: data,
+            success: function (response) {
+                Swal.fire({
+                    title: 'Информация',
+                    text: response.description,
+                    icon: 'success',
+                    confirmButtonText: 'Окей'
+                })
+            },
+            error: function (data) {
+                Swal.fire({
+                    title: 'Информация',
+                    text: 'Ошибка валидации',
+                    icon: 'error',
+                    confirmButtonText: 'Окей'
+                })
+            }
+        });
+    });
+    
+</script>
