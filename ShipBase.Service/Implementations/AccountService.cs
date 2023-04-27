@@ -94,8 +94,8 @@ namespace ShipBase.Service.Implementations
                         Description = "Пользователь не найден"
                     };
                 }
-
-                if (user.Password != HashPasswordHelper.HashPassowrd(model.Password))
+                var mod = HashPasswordHelper.HashPassowrd(model.Password).ToString();
+                if (user.Password.ToString() != mod)
                 {
                     return new BaseResponse<ClaimsIdentity>()
                     {

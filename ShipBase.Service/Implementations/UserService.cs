@@ -47,7 +47,7 @@ namespace ShipBase.Service.Implementations
                 }
                 user.Id = id;
                 user.Login = model.Name;
-                user.Password = model.Password;
+                user.Password = HashPasswordHelper.HashPassowrd(model.Password).ToString();
                 user.Role = Enum.Parse<Role>(model.Role);
 
                 await _userRepository.Update(user);
@@ -58,7 +58,7 @@ namespace ShipBase.Service.Implementations
                     Data = user,
                     StatusCode = StatusCode.OK,
                 };
-                // TypeCar
+               
             }
             catch (Exception ex)
             {
