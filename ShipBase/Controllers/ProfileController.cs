@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
-using ShipBase.Domain.Extensions;
-using ShipBase.Domain.ViewModels.Profile;
-using ShipBase.Service.Interfaces;
+using ShipBase.Domain.SectionOne.Extensions;
+using ShipBase.Domain.SectionOne.ViewModels.Profile;
+using ShipBase.Service.SectionOne.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -27,7 +27,7 @@ namespace ShipBase.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _profileService.Save(model);
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
                 {
                     return Json(new { description = response.Description });
                 }
@@ -46,7 +46,7 @@ namespace ShipBase.Controllers
         {
             var userName = User.Identity.Name;
             var response = await _profileService.GetProfile(userName);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
             {
                 return View(response.Data);   
             }

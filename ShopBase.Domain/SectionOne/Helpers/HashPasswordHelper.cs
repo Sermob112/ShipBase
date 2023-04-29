@@ -2,7 +2,7 @@
 using System.Security.Cryptography;
 using System.Text;
 
-namespace ShipBase.Domain.Helpers
+namespace ShipBase.Domain.SectionOne.Helpers
 {
     public static class HashPasswordHelper
     {

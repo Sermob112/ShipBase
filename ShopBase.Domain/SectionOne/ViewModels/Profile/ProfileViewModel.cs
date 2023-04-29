@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShipBase.Domain.ViewModels.Profile
+namespace ShipBase.Domain.SectionOne.ViewModels.Profile
 {
     public class ProfileViewModel
     {

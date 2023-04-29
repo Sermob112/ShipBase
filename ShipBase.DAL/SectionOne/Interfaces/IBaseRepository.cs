@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
 
-namespace ShipBase.DAL.Interfaces
+namespace ShipBase.DAL.SectionOne.Interfaces
 {
     public interface IBaseRepository<T>
     {

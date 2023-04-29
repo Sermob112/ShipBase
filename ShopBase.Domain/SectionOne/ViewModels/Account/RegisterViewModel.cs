@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShipBase.Domain.ViewModels.Account
+namespace ShipBase.Domain.SectionOne.ViewModels.Account
 {
     public class RegisterViewModel
     {

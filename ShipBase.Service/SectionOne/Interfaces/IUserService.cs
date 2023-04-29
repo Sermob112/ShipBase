@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using ShipBase.Domain.Entity;
-using ShipBase.Domain.Response;
-using ShipBase.Domain.ViewModels.User;
+using ShipBase.Domain.SectionOne.Entity;
+using ShipBase.Domain.SectionOne.Response;
+using ShipBase.Domain.SectionOne.ViewModels.User;
 
-namespace ShipBase.Service.Interfaces
+namespace ShipBase.Service.SectionOne.Interfaces
 {
     public interface IUserService
     {

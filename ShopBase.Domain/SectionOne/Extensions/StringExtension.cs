@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace ShipBase.Domain.Extensions
+namespace ShipBase.Domain.SectionOne.Extensions
 {
     public static class StringExtension
     {

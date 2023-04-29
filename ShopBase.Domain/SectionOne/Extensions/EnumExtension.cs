@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Reflection;
 
-namespace ShipBase.Domain.Extensions
+namespace ShipBase.Domain.SectionOne.Extensions
 {
     public static class EnumExtension
     {

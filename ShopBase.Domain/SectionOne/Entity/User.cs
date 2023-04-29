@@ -1,6 +1,6 @@
-﻿using ShipBase.Domain.Enum;
+﻿using ShipBase.Domain.SectionOne.Enum;
 
-namespace ShipBase.Domain.Entity
+namespace ShipBase.Domain.SectionOne.Entity
 {
     public class User
     {

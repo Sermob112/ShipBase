@@ -1,13 +1,13 @@
 ﻿
-using ShipBase.DAL.Interfaces;
-using ShipBase.Domain.Entity;
+using ShipBase.DAL.SectionOne.Interfaces;
+using ShipBase.Domain.SectionOne.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ShipBase.DAL.Interfaces;
-using ShipBase.Domain.Entity;
+using ShipBase.DAL.SectionOne.Interfaces;
+using ShipBase.Domain.SectionOne.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace ShipBase.DAL.SectionOne.Repositories

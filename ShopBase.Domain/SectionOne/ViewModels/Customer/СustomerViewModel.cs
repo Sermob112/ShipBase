@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShipBase.Domain.ViewModels.Customer
+namespace ShipBase.Domain.SectionOne.ViewModels.Customer
 {
     public class СustomerViewModel
     {

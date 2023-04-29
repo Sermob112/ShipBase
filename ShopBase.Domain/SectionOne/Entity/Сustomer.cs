@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShipBase.Domain.Entity
+namespace ShipBase.Domain.SectionOne.Entity
 {
-    public class Сustomer
+    public class Customer
     {
         public long Id { get; set; }
         public string Name_of_organization { get; set; }
@@ -15,7 +15,7 @@ namespace ShipBase.Domain.Entity
         public long INN { get; set; }
         public long KPP { get; set; }
         public long purchasing_id { get; set; } // внешний ключ
-        public PurchasingData Purchasing_data { get; set; }
+        public PurchasingData PurchasingData { get; set; }
 
 
     }

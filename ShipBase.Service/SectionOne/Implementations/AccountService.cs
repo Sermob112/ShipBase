@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ShipBase.DAL.Interfaces;
-using ShipBase.Domain.Entity;
-using ShipBase.Domain.Enum;
-using ShipBase.Domain.Helpers;
-using ShipBase.Domain.Response;
-using ShipBase.Domain.ViewModels.Account;
-using ShipBase.Service.Interfaces;
+using ShipBase.DAL.SectionOne.Interfaces;
+using ShipBase.Domain.SectionOne.Entity;
+using ShipBase.Domain.SectionOne.Enum;
+using ShipBase.Domain.SectionOne.Helpers;
+using ShipBase.Domain.SectionOne.Response;
+using ShipBase.Domain.SectionOne.ViewModels.Account;
+using ShipBase.Service.SectionOne.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace ShipBase.Service.Implementations
+namespace ShipBase.Service.SectionOne.Implementations
 {
     public class AccountService : IAccountService
     {

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShipBase.Domain.Enum
+namespace ShipBase.Domain.SectionOne.Enum
 {
     public enum Role
     {

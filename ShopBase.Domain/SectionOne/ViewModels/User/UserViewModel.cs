@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace ShipBase.Domain.ViewModels.User
+namespace ShipBase.Domain.SectionOne.ViewModels.User
 {
     public class UserViewModel
     {

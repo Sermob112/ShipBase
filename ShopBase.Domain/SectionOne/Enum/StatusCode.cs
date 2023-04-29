@@ -1,4 +1,4 @@
-﻿namespace ShipBase.Domain.Enum
+﻿namespace ShipBase.Domain.SectionOne.Enum
 {
     public enum StatusCode
     {

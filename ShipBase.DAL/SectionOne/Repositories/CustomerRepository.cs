@@ -1,5 +1,5 @@
-﻿using ShipBase.DAL.Interfaces;
-using ShipBase.Domain.Entity;
+﻿using ShipBase.DAL.SectionOne.Interfaces;
+using ShipBase.Domain.SectionOne.Entity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace ShipBase.DAL.SectionOne.Repositories
 {
-    internal class CustomerRepository : IBaseRepository<Сustomer>
+    public class CustomerRepository : IBaseRepository<Customer>
     {
 
         private readonly ApplicationDbContext _db;
@@ -17,24 +17,24 @@ namespace ShipBase.DAL.SectionOne.Repositories
         {
             _db = db;
         }
-        public async Task Create(Сustomer entity)
+        public async Task Create(Customer entity)
         {
             await _db.Customers.AddAsync(entity);
             await _db.SaveChangesAsync();
         }
 
-        public async Task Delete(Сustomer entity)
+        public async Task Delete(Customer entity)
         {
             _db.Customers.Remove(entity);
             await _db.SaveChangesAsync();
         }
 
-        public IQueryable<Сustomer> GetAll()
+        public IQueryable<Customer> GetAll()
         {
             return _db.Customers;
         }
 
-        public async Task<Сustomer> Update(Сustomer entity)
+        public async Task<Customer> Update(Customer entity)
         {
             _db.Customers.Update(entity);
             await _db.SaveChangesAsync();

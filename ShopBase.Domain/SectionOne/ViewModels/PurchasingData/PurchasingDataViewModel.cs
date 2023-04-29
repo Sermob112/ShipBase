@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ShipBase.Domain.ViewModels.Purchasing_data
+namespace ShipBase.Domain.SectionOne.ViewModels.PurchasingData
 {
     public class PurchasingDataViewModel
     {
@@ -18,9 +18,9 @@ namespace ShipBase.Domain.ViewModels.Purchasing_data
         [Required(ErrorMessage = "Укажите cпособ осуществления закупки")]
         public string Method_of_purchasing { get; set; }
         [Required(ErrorMessage = "Укажите дату начала осуществления закупки")]
-        public DateTime Start_data { get; set; }
+        public DateTimeOffset Start_data { get; set; }
         [Required(ErrorMessage = "Укажите дату оканчания осуществления закупки")]
-        public DateTime End_data { get; set; }
+        public DateTimeOffset End_data { get; set; }
         [Required(ErrorMessage = "Укажите Н(М)ЦК")]
         public int NMCK { get; set; }
         [Required(ErrorMessage = "Укажите номер Федерального закона")]
@@ -30,6 +30,7 @@ namespace ShipBase.Domain.ViewModels.Purchasing_data
         [Required(ErrorMessage = "Укажите название объекта")]
         public string Purchase_object { get; set; }
 
+        public string NameOfCustomer { get; set; } 
 
     }
 }

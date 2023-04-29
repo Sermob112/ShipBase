@@ -1,4 +1,4 @@
-﻿namespace ShipBase.Domain.Entity
+﻿namespace ShipBase.Domain.SectionOne.Entity
 {
     public class Profile
     {

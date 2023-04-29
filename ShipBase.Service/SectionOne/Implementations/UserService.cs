@@ -3,21 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.ConstrainedExecution;
 using System.Threading.Tasks;
-using ShipBase.DAL.Interfaces;
-using ShipBase.DAL.Repositories;
-using ShipBase.Domain.Entity;
-using ShipBase.Domain.Enum;
-using ShipBase.Domain.Extensions;
-using ShipBase.Domain.Helpers;
-using ShipBase.Domain.Response;
+using ShipBase.DAL.SectionOne.Interfaces;
+using ShipBase.DAL.SectionOne.Repositories;
+using ShipBase.Domain.SectionOne.Entity;
+using ShipBase.Domain.SectionOne.Enum;
+using ShipBase.Domain.SectionOne.Extensions;
+using ShipBase.Domain.SectionOne.Helpers;
+using ShipBase.Domain.SectionOne.Response;
 
 
-using ShipBase.Domain.ViewModels.User;
-using ShipBase.Service.Interfaces;
+using ShipBase.Domain.SectionOne.ViewModels.User;
+using ShipBase.Service.SectionOne.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 
-namespace ShipBase.Service.Implementations
+namespace ShipBase.Service.SectionOne.Implementations
 {
     public class UserService : IUserService
     {

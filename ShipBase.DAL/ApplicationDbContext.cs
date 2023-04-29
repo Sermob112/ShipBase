@@ -1,9 +1,9 @@
-﻿using ShipBase.Domain.Entity;
-using ShipBase.Domain.Enum;
+﻿using ShipBase.Domain.SectionOne.Entity;
+using ShipBase.Domain.SectionOne.Enum;
 
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
-using ShipBase.Domain.Helpers;
+using ShipBase.Domain.SectionOne.Helpers;
 
 namespace ShipBase.DAL
 {
@@ -28,7 +28,7 @@ namespace ShipBase.DAL
 
         public DbSet<PurchasingData> PurchasingDatas { get; set; }
 
-        public DbSet<Сustomer> Customers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(builder =>
@@ -108,7 +108,7 @@ namespace ShipBase.DAL
 
             });
 
-            modelBuilder.Entity<Сustomer>(builder =>
+            modelBuilder.Entity<Customer>(builder =>
             {
                 builder.ToTable("Сustomer").HasKey(x => x.Id);
 
@@ -117,12 +117,12 @@ namespace ShipBase.DAL
                 builder.Property(x => x.OGRN);
                 builder.Property(x => x.INN);
                 builder.Property(x => x.KPP);
-                builder.HasOne(x => x.Purchasing_data)
+                builder.HasOne(x => x.PurchasingData)
                .WithMany()
                .HasForeignKey(x => x.purchasing_id);
 
 
-                builder.HasData(new Сustomer()
+                builder.HasData(new Customer()
                 {
                     Id = 1,
                     Name_of_organization = "ЮЖНЫЙ ЦЕНТР СУДОСТРОЕНИЯ И СУДОРЕМОНТА",

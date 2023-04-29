@@ -1,9 +1,9 @@
 ﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using ShipBase.Domain.Response;
-using ShipBase.Domain.ViewModels.Account;
+using ShipBase.Domain.SectionOne.Response;
+using ShipBase.Domain.SectionOne.ViewModels.Account;
 
-namespace ShipBase.Service.Interfaces
+namespace ShipBase.Service.SectionOne.Interfaces
 {
     public interface IAccountService
     {

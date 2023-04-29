@@ -2,10 +2,10 @@
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using ShipBase.Domain.Response;
-using ShipBase.Domain.Enum;
-using ShipBase.Domain.ViewModels.Account;
-using ShipBase.Service.Interfaces;
+using ShipBase.Domain.SectionOne.Response;
+using ShipBase.Domain.SectionOne.Enum;
+using ShipBase.Domain.SectionOne.ViewModels.Account;
+using ShipBase.Service.SectionOne.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +32,7 @@ namespace ShipBase.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _accountService.Register(model);
-                if (response.StatusCode == ShipBase.Domain.Enum.StatusCode.OK)
+                if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
@@ -53,7 +53,7 @@ namespace ShipBase.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _accountService.Login(model);
-                if (response.StatusCode == ShipBase.Domain.Enum.StatusCode.OK)
+                if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
                 {
                     await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                         new ClaimsPrincipal(response.Data));
@@ -78,7 +78,7 @@ namespace ShipBase.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _accountService.ChangePassword(model);
-                if (response.StatusCode == ShipBase.Domain.Enum.StatusCode.OK)
+                if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
                 {
                     return Json(new { description = response.Description });
                 }

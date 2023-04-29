@@ -1,9 +1,9 @@
 ﻿using System.Linq;
 using System.Threading.Tasks;
-using ShipBase.DAL.Interfaces;
-using ShipBase.Domain.Entity;
+using ShipBase.DAL.SectionOne.Interfaces;
+using ShipBase.Domain.SectionOne.Entity;
 
-namespace ShipBase.DAL.Repositories
+namespace ShipBase.DAL.SectionOne.Repositories
 {
     public class UserRepository : IBaseRepository<User>
     {

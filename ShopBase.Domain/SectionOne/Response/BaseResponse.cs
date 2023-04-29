@@ -1,6 +1,6 @@
-﻿using ShipBase.Domain.Enum;
+﻿using ShipBase.Domain.SectionOne.Enum;
 
-namespace ShipBase.Domain.Response
+namespace ShipBase.Domain.SectionOne.Response
 {
     public class BaseResponse<T> : IBaseResponse<T>
     {
