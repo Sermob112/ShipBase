@@ -10,7 +10,7 @@ namespace ShipBase.DAL
     public class ApplicationDbContext : DbContext
     {
 
-
+       
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
@@ -97,6 +97,7 @@ namespace ShipBase.DAL
                     Id = 32008913701,
                     Purchase_stage = "Закупка завершена",
                     Num_Of_Applications = 4,
+                    NMCK = 20421451,
                     Method_of_purchasing = "Аукцион",
                     Start_data = DateTimeOffset.Parse("2022-05-01"),
                     End_data = DateTimeOffset.Parse("2022-12-21"),

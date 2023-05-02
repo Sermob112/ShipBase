@@ -1,0 +1,36 @@
+﻿@model List<ShipBase.Domain.SectionOne.Entity.PurchasingData>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">номер закупки</th>
+            <th scope="col">этап закупки</th>
+            <th scope="col">количество заявок</th>
+            <th scope="col">cпособ осуществления закупки</th>
+            <th scope="col">датa начала осуществления закупки</th>
+            <th scope="col">датa оканчания осуществления закупки</th>
+            <th scope="col">Н(М)ЦК</th>
+            <th scope="col">номер Федерального закона</th>
+            <th scope="col">количество кораблей</th>
+            <th scope="col">название объекта</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var purch in Model)
+        {
+            <tr>
+                <td>@purch.Id</td>
+                <td>@purch.Purchase_stage</td>
+                <td>@purch.Num_Of_Applications</td>
+                <td>@purch.Method_of_purchasing</td>
+                <td>@purch.Start_data</td>
+                <td>@purch.End_data</td>
+                <td>@purch.NMCK</td>
+                <td>@purch.Federal_law</td>
+                <td>@purch.Num_of_ships</td>
+                <td>@purch.Purchase_object</td>
+                <td>@purch.Customers.Count()</td>
+            </tr>
+        }
+    </tbody>
+</table>

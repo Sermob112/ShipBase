@@ -22,7 +22,7 @@ namespace ShipBase.Domain.SectionOne.ViewModels.PurchasingData
         [Required(ErrorMessage = "Укажите дату оканчания осуществления закупки")]
         public DateTimeOffset End_data { get; set; }
         [Required(ErrorMessage = "Укажите Н(М)ЦК")]
-        public int NMCK { get; set; }
+        public long NMCK { get; set; }
         [Required(ErrorMessage = "Укажите номер Федерального закона")]
         public int Federal_law { get; set; }
         [Required(ErrorMessage = "Укажите количество кораблей")]

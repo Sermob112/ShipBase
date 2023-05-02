@@ -8,10 +8,9 @@
 
 <div class="card col-md-12" style="margin: 10px;">
     <div class="card-buttons-group">
-        @if (User.IsInRole("Admin"))
-        {
-            <button class='btn btn-success' id='addPurchId'>Добавить</button>
-        }
+       
+    <button class='btn btn-success' id='addPurchase'>Добавить</button>
+        
     </div>
 </div>
 
@@ -36,40 +35,54 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var purch in Model)
+            @try
             {
-                <tr>
-                    <td>@purch.Id</td>
-                    <td>@purch.Purchase_stage</td>
-                    <td>@purch.Num_Of_Applications</td>
-                    <td>@purch.Method_of_purchasing</td>
-                    <td>@purch.Start_data</td>
-                    <td>@purch.End_data</td>
-                    <td>@purch.NMCK</td>
-                    <td>@purch.Federal_law</td>
-                    <td>@purch.Num_of_ships</td>
-                    <td>@purch.Purchase_object</td>
-                    
-                    <td>
-                        <form asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@purch.Id" method="post">
-                            <button type="submit" class="btn btn-sm btn-danger">
-                                Удалить
-                            </button>
-                        </form>
-                    </td>
-                    <td>
-                        @*<button type="submit" class="btn btn-sm btn-primary" onclick="openModal({ url: '@Url.Action("Update", "User")', data: @user.Id })">
-                    Посмотреть
-                    </button>*@
-                        @* <button class='btn btn-sm btn-primary' id='UpdateUserId'>Обновить</button>*@
-                        <button class="btn btn-primary" onclick="openModal({ url: '/Purchase/GetPurchasingData', data: '@purch.Id' })"
-                            data-toggle="ajax-modal" data-target="Modal">
-                            Открыть
-                        </button>
 
-                    </td>
-                </tr>
+
+
+                @foreach (var purch in Model)
+                {
+                    <tr>
+                        <td>@purch.Id</td>
+                        <td>@purch.Purchase_stage</td>
+                        <td>@purch.Num_Of_Applications</td>
+                        <td>@purch.Method_of_purchasing</td>
+                        <td>@purch.Start_data</td>
+                        <td>@purch.End_data</td>
+                        <td>@purch.NMCK</td>
+                        <td>@purch.Federal_law</td>
+                        <td>@purch.Num_of_ships</td>
+                        <td>@purch.Purchase_object</td>
+
+                        <td>
+                            <form asp-controller="Purchase" asp-action="Delete" asp-route-id=@purch.Id method="post">
+                                <button type="submit" class="btn btn-sm btn-danger">
+                                    Удалить
+                                </button>
+                            </form>
+                        </td>
+                        <td>
+                            <button class="btn btn-primary" onclick="openModal({ url: '/Purchase/GetPurchasingData', data: '@purch.Id' })"
+                            data-toggle="ajax-modal" data-target="Modal">
+                                Открыть
+                            </button>
+
+                        </td>
+                    </tr>
+                }
             }
+               catch (Exception)
+            {
+
+                <div class="card col-md-12">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">На этом сайте пока ничего нет, но сукоро появится</h5>
+                      
+                    </div>
+                </div>
+            }
+
+        
         </tbody>
     </table>
 </div>
@@ -77,26 +90,47 @@
 @section pageScripts {
 
     <script src="~/js/modal.js"></script>
+
     <script>
-        let modal = $('#modalWhButtons');
+        let modal = $('#modal');
 
         $('#addPurchase').on('click', function () {
             $.ajax({
                 type: 'GET',
-                url: '@Url.Action("Save"),
-                              success: function (response) {
-                    $('.modal-dialog').removeClass("modal-lg");
+                url: '@Url.Action("Save")',
+                success: function (response) {
                     modal.find(".modal-body").html(response);
                     modal.modal('show')
                 },
                 failure: function () {
                     modal.modal('hide')
-                },
-                error: function (response) {
-                    alert(response.responseText);
                 }
             });
         });
 
+        $('#saveBtn').on('click', function () {
+            const data = $('#formSavePurchase').serialize()
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("Save")',
+                data: data,
+                success: function (data) {
+                    Swal.fire({
+                        title: 'Информация',
+                        text: data.description,
+                        icon: 'success',
+                        confirmButtonText: 'Окей'
+                    })
+                },
+                error: function (response) {
+                    Swal.fire({
+                        title: 'Информация',
+                        text: response.responseJSON.errorMessage,
+                        icon: 'error',
+                        confirmButtonText: 'Окей'
+                    })
+                }
+            })
+        });
     </script>
 }

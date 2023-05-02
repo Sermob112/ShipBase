@@ -14,11 +14,11 @@ namespace ShipBase.Domain.SectionOne.Entity
         public string Method_of_purchasing { get; set; }
         public DateTimeOffset Start_data { get; set; }
         public DateTimeOffset End_data { get; set; }
-        public int NMCK { get; set; }
+        public long NMCK { get; set; }
         public int Federal_law { get; set; }
         public int Num_of_ships { get; set; }
         public string Purchase_object { get; set; }
-
+        public ICollection<Customer> Customers { get; set; }
 
 
     }

@@ -31,6 +31,17 @@ namespace ShipBase.Service.SectionOne.Implementations
         {
             try
             {
+                var user = await _purchasingDataRepository.GetAll().FirstOrDefaultAsync(x => x.Id == purch.Id);
+                if (user != null)
+                {
+                    return new BaseResponse<PurchasingData>()
+                    {
+                        Description = "Закупка с таким номером уже есть",
+                        StatusCode = StatusCode.UserAlreadyExists
+                    };
+                }
+
+
                 var cust = await _customerRepository.GetAll()
                    .Include(x => x.PurchasingData)
                    .FirstOrDefaultAsync(x => x.purchasing_id == purch.Id);
@@ -40,8 +51,8 @@ namespace ShipBase.Service.SectionOne.Implementations
                     Purchase_stage = purch.Purchase_stage,
                     Num_Of_Applications = purch.Num_Of_Applications,
                     Method_of_purchasing = purch.Method_of_purchasing,
-                    Start_data = DateTimeOffset.Parse(purch.Start_data.ToString()),
-                    End_data = DateTimeOffset.Parse(purch.End_data.ToString()),
+                    Start_data = DateTime.SpecifyKind(purch.Start_data.LocalDateTime, DateTimeKind.Utc),
+                    End_data = DateTime.SpecifyKind(purch.Start_data.LocalDateTime, DateTimeKind.Utc),
                     NMCK = Convert.ToInt32(purch.NMCK),
                     Federal_law = Convert.ToInt32(purch.Federal_law),
                     Num_of_ships = Convert.ToInt32(purch.Num_of_ships),
@@ -114,11 +125,11 @@ namespace ShipBase.Service.SectionOne.Implementations
                 }
 
                 purch.Id = model.Id;
-                    purch.Purchase_stage = model.Purchase_stage;
+                purch.Purchase_stage = model.Purchase_stage;
                 purch.Num_Of_Applications = model.Num_Of_Applications;
                 purch.Method_of_purchasing = model.Method_of_purchasing;
-                purch.Start_data = DateTimeOffset.Parse(model.Start_data.ToString());
-                purch.End_data = DateTimeOffset.Parse(model.End_data.ToString());
+                purch.Start_data = DateTime.SpecifyKind(model.Start_data.LocalDateTime, DateTimeKind.Utc);
+                purch.End_data = DateTime.SpecifyKind(model.Start_data.LocalDateTime, DateTimeKind.Utc);
                 purch.NMCK = Convert.ToInt32(model.NMCK);
                 purch.Federal_law = Convert.ToInt32(model.Federal_law);
                 purch.Num_of_ships = Convert.ToInt32(model.Num_of_ships);
@@ -149,6 +160,11 @@ namespace ShipBase.Service.SectionOne.Implementations
             var cust = await _customerRepository.GetAll()
                   .Include(x => x.PurchasingData)
                   .FirstOrDefaultAsync(x => x.purchasing_id == id);
+            var customers = await _customerRepository.GetAll()
+         .Include(c => c.PurchasingData)
+         .ToListAsync();
+          
+
 
             try
             {
@@ -168,8 +184,8 @@ namespace ShipBase.Service.SectionOne.Implementations
                     Purchase_stage = purch.Purchase_stage,
                     Num_Of_Applications = purch.Num_Of_Applications,
                     Method_of_purchasing = purch.Method_of_purchasing,
-                    Start_data = DateTimeOffset.Parse(purch.Start_data.ToString()),
-                    End_data = DateTimeOffset.Parse(purch.End_data.ToString()),
+                    Start_data = DateTime.SpecifyKind(purch.Start_data.LocalDateTime, DateTimeKind.Utc),
+                    End_data = DateTime.SpecifyKind(purch.Start_data.LocalDateTime, DateTimeKind.Utc),
                     NMCK = Convert.ToInt32(purch.NMCK),
                     Federal_law = Convert.ToInt32(purch.Federal_law),
                     Num_of_ships = Convert.ToInt32(purch.Num_of_ships),
@@ -207,9 +223,9 @@ namespace ShipBase.Service.SectionOne.Implementations
                         Purchase_stage = x.Purchase_stage,
                         Num_Of_Applications = x.Num_Of_Applications,
                         Method_of_purchasing = x.Method_of_purchasing,
-                        Start_data = DateTimeOffset.Parse(x.Start_data.ToString()),
-                        End_data = DateTimeOffset.Parse(x.End_data.ToString()),
-                        NMCK = Convert.ToInt32(x.NMCK),
+                        Start_data = DateTime.SpecifyKind(x.Start_data.LocalDateTime, DateTimeKind.Utc),
+                        End_data = DateTime.SpecifyKind(x.Start_data.LocalDateTime, DateTimeKind.Utc),
+                        NMCK = Convert.ToInt64(x.NMCK),
                         Federal_law = Convert.ToInt32(x.Federal_law),
                         Num_of_ships = Convert.ToInt32(x.Num_of_ships),
                         Purchase_object = x.Purchase_object,
@@ -234,6 +250,7 @@ namespace ShipBase.Service.SectionOne.Implementations
         {
            try
             {
+
                 var purch = _purchasingDataRepository.GetAll().ToList();
                 if (!purch.Any())
                 {
@@ -259,5 +276,45 @@ namespace ShipBase.Service.SectionOne.Implementations
                 };
             }
         }
+
+       /* public async Task<IBaseResponse<List<PurchasingDataViewModel>>> GetPurchasingDatasView()
+        {
+            try
+            {
+
+                var customers = await _customerRepository.GetAll()
+               .Include(c => c.PurchasingData)
+               .ToListAsync();
+                var purch = await _purchasingDataRepository.GetAll()
+                    .Select(x => new PurchasingDataViewModel()
+                    
+                    })
+                    .ToListAsync();
+
+
+                if (!customers.Any())
+                {
+                    return new BaseResponse<List<PurchasingDataViewModel>>()
+                    {
+                        Description = "Найдено 0 элементов",
+                        StatusCode = StatusCode.OK
+                    };
+                }
+
+                return new BaseResponse<List<PurchasingDataViewModel>>()
+                {
+                    Data = purch,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<List<PurchasingDataViewModel>>()
+                {
+                    Description = $"[GetPurchasingDatas] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }*/
     }
 }

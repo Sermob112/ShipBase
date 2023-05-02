@@ -27,7 +27,7 @@ namespace ShipBase.Controllers
             }
             return View("Error", $"{response.Description}");
         }
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(long id)
         {
             var response = await _purchasingDataService.Delete(id);
             if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
@@ -39,7 +39,7 @@ namespace ShipBase.Controllers
         public IActionResult Compare() => PartialView();
 
         [HttpGet]
-        public async Task<IActionResult> Save(int id)
+        public async Task<IActionResult> Save(long id)
         {
             if (id == 0)
                 return PartialView();
@@ -79,17 +79,17 @@ namespace ShipBase.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { errorMessage });
             }
 
-            return RedirectToAction("GetPurchasingDatas");
+            return RedirectToAction("GetPurchasingData");
         }
         [HttpGet]
-        public async Task<ActionResult> GetPurchasingData(int id, bool isJson)
+        public async Task<ActionResult> GetPurchasingData(long id, bool isJson)
         {
             var response = await _purchasingDataService.GetPurchasingData(id);
             if (isJson)
             {
                 return Json(response.Data);
             }
-            return PartialView("GetPurchasingDatas", response.Data);
+            return PartialView("GetPurchasingData", response.Data);
         }
 
         [HttpPost]
