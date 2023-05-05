@@ -1,8 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using ShipBase.Domain.SectionOne.Entity;
 using ShipBase.Domain.SectionOne.Extensions;
 using ShipBase.Domain.SectionOne.ViewModels.Customer;
 using ShipBase.Domain.SectionOne.ViewModels.PurchasingData;
+using ShipBase.Domain.SectionOne.ViewModels.User;
+using ShipBase.Service.SectionOne.Implementations;
 using ShipBase.Service.SectionOne.Interfaces;
 using System.Linq;
 
@@ -36,8 +39,43 @@ namespace ShipBase.Controllers
             }
             return View("Error", $"{response.Description}");
         }
-        public IActionResult Compare() => PartialView();
+        [HttpGet]
+        public IActionResult Create() => PartialView();
 
+        [HttpPost]
+        public async Task<IActionResult> Create(PurchasingDataCreateViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var response = await _purchasingDataService.Create(model);
+                if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
+                {
+                    return Json(new { description = response.Description });
+                }
+                return BadRequest(new { errorMessage = response.Description });
+            }
+            var errorMessage = ModelState.Values
+                .SelectMany(v => v.Errors.Select(x => x.ErrorMessage)).ToList().Join();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { errorMessage });
+        }
+
+
+        /* [HttpPost]
+         public async Task<IActionResult> Create(PurchasingDataViewModel model)
+         {
+             if (ModelState.IsValid)
+             {
+                 var response = await _purchasingDataService.Create(model);
+                 if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
+                 {
+                     return Json(new { description = response.Description });
+                 }
+                 return BadRequest(new { errorMessage = response.Description });
+             }
+             var errorMessage = ModelState.Values
+                 .SelectMany(v => v.Errors.Select(x => x.ErrorMessage)).ToList().Join();
+             return StatusCode(StatusCodes.Status500InternalServerError, new { errorMessage });
+         }*/
         [HttpGet]
         public async Task<IActionResult> Save(long id)
         {
@@ -52,19 +90,18 @@ namespace ShipBase.Controllers
             ModelState.AddModelError("", response.Description);
             return PartialView();
         }
-
         [HttpPost]
         public async Task<IActionResult> Save(PurchasingDataViewModel viewModel)
         {
-         
-              
+
+
             ModelState.Remove("Id");
 
             if (ModelState.IsValid)
             {
                 if (viewModel.Id == 0)
                 {
-                    
+
                     await _purchasingDataService.Create(viewModel/* imageData*/);
                 }
                 else
@@ -79,7 +116,7 @@ namespace ShipBase.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { errorMessage });
             }
 
-            return RedirectToAction("GetPurchasingData");
+            return RedirectToAction("GetPurchasingDatas");
         }
         [HttpGet]
         public async Task<ActionResult> GetPurchasingData(long id, bool isJson)

@@ -8,8 +8,11 @@
 
 <div class="card col-md-12" style="margin: 10px;">
     <div class="card-buttons-group">
-       
-    <button class='btn btn-success' id='addPurchase'>Добавить</button>
+
+        <button class="btn btn-success" onclick="openModal({ url: '/Purchase/Create',data: 0})"
+                data-toggle="ajax-modal" data-target="Modal">
+            Добавить
+        </button>
         
     </div>
 </div>
@@ -94,10 +97,10 @@
     <script>
         let modal = $('#modal');
 
-        $('#addPurchase').on('click', function () {
+        $('#formCreatePurchase').on('click', function () {
             $.ajax({
                 type: 'GET',
-                url: '@Url.Action("Save")',
+                url: '@Url.Action("Create")',
                 success: function (response) {
                     modal.find(".modal-body").html(response);
                     modal.modal('show')

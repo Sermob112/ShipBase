@@ -87,6 +87,7 @@ namespace ShipBase.DAL
                 builder.Property(x => x.Num_Of_Applications);
                 builder.Property(x => x.Method_of_purchasing).IsRequired(false);
                 builder.Property(x => x.Start_data);
+                builder.Property(x => x.NMCK);
                 builder.Property(x => x.End_data);
                 builder.Property(x => x.Federal_law);
                 builder.Property(x => x.Num_of_ships);

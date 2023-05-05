@@ -16,6 +16,7 @@ namespace ShipBase.Service.SectionOne.Interfaces
         Task<IBaseResponse<PurchasingDataViewModel>> GetPurchasingData(long id);
         Task<BaseResponse<Dictionary<long, string>>> GetPurchasingData(string term);
         Task<IBaseResponse<PurchasingData>> Create(PurchasingDataViewModel customer);
+        Task<IBaseResponse<PurchasingData>> Create(PurchasingDataCreateViewModel customer);
         Task<IBaseResponse<bool>> Delete(long id);
 
         Task<IBaseResponse<PurchasingData>> Edit(long id, PurchasingDataViewModel model);

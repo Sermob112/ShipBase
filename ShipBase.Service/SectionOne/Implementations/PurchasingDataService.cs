@@ -27,6 +27,58 @@ namespace ShipBase.Service.SectionOne.Implementations
             _customerRepository = customerRepository;
             _purchasingDataRepository = purchasingDataRepository;
         }
+
+
+
+        public async Task<IBaseResponse<PurchasingData>> Create(PurchasingDataCreateViewModel purch)
+        {
+            try
+            {
+                var user = await _purchasingDataRepository.GetAll().FirstOrDefaultAsync(x => x.Id == purch.Id);
+                if (user != null)
+                {
+                    return new BaseResponse<PurchasingData>()
+                    {
+                        Description = "Закупка с таким номером уже есть",
+                        StatusCode = StatusCode.UserAlreadyExists
+                    };
+                }
+
+
+                var cust = await _customerRepository.GetAll()
+                   .Include(x => x.PurchasingData)
+                   .FirstOrDefaultAsync(x => x.purchasing_id == purch.Id);
+                var data = new PurchasingData()
+                {
+                    Id = purch.Id,
+                    Purchase_stage = purch.Purchase_stage,
+                    Num_Of_Applications = purch.Num_Of_Applications,
+                    Method_of_purchasing = purch.Method_of_purchasing,
+                    Start_data = DateTime.SpecifyKind(purch.Start_data.LocalDateTime, DateTimeKind.Utc),
+                    End_data = DateTime.SpecifyKind(purch.Start_data.LocalDateTime, DateTimeKind.Utc),
+                    NMCK = Convert.ToInt32(purch.NMCK),
+                    Federal_law = Convert.ToInt32(purch.Federal_law),
+                    Num_of_ships = Convert.ToInt32(purch.Num_of_ships),
+                    Purchase_object = purch.Purchase_object,
+
+                };
+                await _purchasingDataRepository.Create(data);
+
+                return new BaseResponse<PurchasingData>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = data
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<PurchasingData>()
+                {
+                    Description = $"[Create] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
         public async Task<IBaseResponse<PurchasingData>> Create(PurchasingDataViewModel purch)
         {
             try
@@ -190,7 +242,7 @@ namespace ShipBase.Service.SectionOne.Implementations
                     Federal_law = Convert.ToInt32(purch.Federal_law),
                     Num_of_ships = Convert.ToInt32(purch.Num_of_ships),
                     Purchase_object = purch.Purchase_object,
-                    NameOfCustomer = cust.Name_of_organization,
+                  
 
                 };
 
@@ -204,7 +256,7 @@ namespace ShipBase.Service.SectionOne.Implementations
             {
                 return new BaseResponse<PurchasingDataViewModel>()
                 {
-                    Description = $"[GetCar] : {ex.Message}",
+                    Description = $"[GetPurchasingData] : {ex.Message}",
                     StatusCode = StatusCode.InternalServerError
                 };
             }
