@@ -13,8 +13,13 @@ label {
 
 /* Provide sufficient contrast against white background */
 a {
-  color: #0366d6;
+    color: #0366d6;
+    transition: all 0.2s linear;
 }
+
+    a:hover {
+        color: #a8d8ff;
+    }
 
 .btn-primary {
   color: #fff;

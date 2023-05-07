@@ -4,11 +4,15 @@
 }
 
 .card {
-    box-shadow: 4px 2px 2px 3px #c82333;
+    box-shadow: 4px 2px 2px 3px #7fc7ff;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    float: none;
 }
 
 .card-title {
-    font-family: Impact, serif;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 30px;
 }
 
