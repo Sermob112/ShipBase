@@ -11,14 +11,18 @@
     float: none;
 }
 
+#cardPurchase{
+    
+}
+
 .card-title {
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 30px;
 }
 
 .card-buttons-group {
-    text-align: right;
-    padding: 10px;
+/*    text-align: right;
+    padding: 10px;*/
 }
 
 .card-image {
