@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ShipBase.Domain.SectionOne.ViewModels.PurchasingData
 {
-    public class PurchasingDataViewModel
+    public class AllDataViewModel
     {
         [Required(ErrorMessage = "Укажите номер закупки")]
         public long Id { get; set; }
@@ -29,8 +29,7 @@ namespace ShipBase.Domain.SectionOne.ViewModels.PurchasingData
         public int Num_of_ships { get; set; }
         [Required(ErrorMessage = "Укажите название объекта")]
         public string Purchase_object { get; set; }
-      
-
-
+        [Required(ErrorMessage = "Укажите название объекта")]
+        public string Name_of_organization { get; set; }
     }
 }
