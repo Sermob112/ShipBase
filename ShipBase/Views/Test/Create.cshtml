@@ -1,0 +1,9 @@
+﻿@model List<ShipBase.Domain.SectionOne.ViewModels.Purch.PurchViewModel>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="fileInput">Выберите файл CSV:</label>
+        <input type="file" class="form-control-file" name="file" accept=".csv" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Загрузить</button>
+</form>
