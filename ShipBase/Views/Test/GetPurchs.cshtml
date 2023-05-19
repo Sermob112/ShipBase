@@ -7,8 +7,19 @@
                 <th scope="col">номер закупки</th>
                 <th scope="col">номер Федерального закона</th>
                 <th scope="col">cпособ осуществления закупки</th>
-                <th scope="col">название объекта</th>
-                <th scope="col">этап закупки</th>
+                <th scope="col">Наименование закупки</th>
+                <th scope="col">Начальная (максимальная) цена контракта</th>
+                <th scope="col">Наименование Заказчика</th>
+                <th scope="col">Организация, осуществляющая размещение </th>
+                <th scope="col">Дата размещения</th>
+                <th scope="col">Дата обновления</th>
+
+                <th scope="col">Этап закупки</th>
+                <th scope="col">Особенности размещения заказа\ Преимущества (44-ФЗ)</th>
+                <th scope="col">Дата начала подачи заявок </th>
+                <th scope="col">Дата окончания подачи заявок </th>
+                <th scope="col">Дата проведения электронного аукциона </th>
+
 
             </tr>
         </thead>
@@ -25,7 +36,19 @@
                         <td>@purch.Federal_law</td>
                         <td>@purch.Method_of_purchasing</td>
                         <td>@purch.Purchase_object</td>
+
+                        <td>@purch.NMCK</td>
+                        <td>@purch.Name_of_customer</td>
+                        <td>@purch.Hosting_organization</td>
+                        <td>@purch.Set_data</td>
+                        <td>@purch.Update_data</td>
                         <td>@purch.Purchase_stage</td>
+
+                        <td>@purch.Features_of_placing</td>
+                        <td>@purch.Start_data</td>
+                        <td>@purch.End_data</td>
+                        <td>@purch.Date_of_electronic_auction</td>
+               
 
                         <td>
                             <form asp-controller="Purchase" asp-action="Delete" asp-route-id=@purch.Id method="post">

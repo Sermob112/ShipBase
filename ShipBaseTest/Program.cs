@@ -27,53 +27,78 @@ namespace ShipBaseTest
 
         static void Main(string[] args)
         {
+            string t = "700000,000";
+        
+            double num = Convert.ToDouble(t);
+            Console.WriteLine(num);
 
-            string filePath = @"C:\\Users\\Sergey\\source\\repos\\ShipBase\\ShipBaseTest\\Test\\tester.csv";
-            if (File.Exists(filePath)) {
-                List<Purchase> data = ReadDataFromCsv(filePath, Encoding.GetEncoding("Windows-1251"));
-                    }
-            /*
-                        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            /* string filePath = @"C:\\Users\\Sergey\\source\\repos\\ShipBase\\ShipBaseTest\\Test\\tester.csv";
+             if (File.Exists(filePath)) {
+                 List<Purchase> data = ReadDataFromCsv(filePath, Encoding.GetEncoding("Windows-1251"));
+                     }*/
 
-                        if (File.Exists(filePath))
+
+
+            /*Execl метод чтнение почти готовый*/
+            /*ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            string filePath2 = @"C:\\Users\\Sergey\\source\\repos\\ShipBase\\ShipBaseTest\\Test\\Work.xlsx";
+            if (File.Exists(filePath2))
+            {
+                using (var package = new ExcelPackage(new FileInfo(filePath2)))
+                {
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets[0]; // Индексация начинается с 1, выберите правильный индекс
+
+                    int rowCount = worksheet.Dimension.Rows;
+                    int colCount = worksheet.Dimension.Columns;
+
+                    Purchase myObject = new Purchase();
+
+                    for (int row = 2; row <= rowCount; row++)
+                    {
+                        for (int col = 1; col <= colCount; col++)
                         {
-                            using (var package = new ExcelPackage(new FileInfo(filePath)))
+                            var cellValue = worksheet.Cells[row, col].Value;
+
+                            // Присвоение значения соответствующему свойству объекта
+                            if (col == 1)
                             {
-                                ExcelWorksheet worksheet = package.Workbook.Worksheets[1]; // Индексация начинается с 1, выберите правильный индекс
-
-                                int rowCount = worksheet.Dimension.Rows;
-                                int colCount = worksheet.Dimension.Columns;
-
-                                Purchase myObject = new Purchase();
-
-                                for (int row = 1; row <= rowCount; row++)
-                                {
-                                    for (int col = 1; col <= colCount; col++)
-                                    {
-                                        var cellValue = worksheet.Cells[row, col].Value;
-
-                                        // Присвоение значения соответствующему свойству объекта
-                                        if (col == 1)
-                                        {
-                                            myObject.Federal_law = cellValue?.ToString();
-                                        }
-                                        else if (col == 2)
-                                        {
-                                             myObject.Id = cellValue?.ToString();
-
-                                        }
-
-                                        // Продолжайте аналогично для других свойств вашего класса
-                                    }
-                                }
-
-                                // Дальнейшая обработка объекта myObject, содержащего данные из XLSX файла
+                                myObject.Federal_law = cellValue?.ToString();
                             }
+                            if (col == 2)
+                            {
+                                myObject.Id = long.Parse(cellValue.ToString().Replace("№", ""));
+                            }
+                            else if (col == 3)
+                            {
+                                myObject.Method_of_purchasing = cellValue.ToString();
+                             
+
+                            }
+                            else if (col == 4)
+                            {
+                                myObject.Purchase_object = cellValue.ToString();
+
+
+                            }
+                            else if (col == 5)
+                            {
+                                myObject.Purchase_stage = cellValue.ToString();
+
+
+                            }
+
+                            // Продолжайте аналогично для других свойств вашего класса
                         }
-                        else
-                        {
-                            Console.WriteLine("Файл не существует.");
-                        }*/
+                    }
+                
+
+                    // Дальнейшая обработка объекта myObject, содержащего данные из XLSX файла
+                }
+            }
+            else
+            {
+                Console.WriteLine("Файл не существует.");
+            }*/
 
 
             Console.ReadLine();

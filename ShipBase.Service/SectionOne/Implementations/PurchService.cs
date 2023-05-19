@@ -45,16 +45,63 @@ namespace ShipBase.Service.SectionOne.Implementations
 
                         string[] values = line.Split(';');
 
-                        data = new Purch()
+                        data = new Purch();
+
+                       
+                        data.Federal_law = values[0];
+                        data.Id = long.Parse(values[1].Replace("№", ""));
+                        data.Method_of_purchasing = values[2];
+                        try
                         {
-                            Federal_law = values[0],
-                            Id = long.Parse(values[1].Replace("№", "")),
-                            Method_of_purchasing = values[2],
-                            Purchase_object = values[3],
-                            Purchase_stage = values[4]
+                            data.Purchase_object = values[3];
+                            data.NMCK = double.Parse(values[8].Replace(".", ","));
+                            data.Name_of_customer = values[16];
+                            data.Hosting_organization = values[17];
+                            data.Set_data = values[18];
+                            data.Update_data = values[19];
+                            data.Purchase_stage = values[20];
+                            data.Features_of_placing = values[21];
+                            data.Start_data = values[22];
+                            data.End_data = values[23];
 
-                        };
 
+
+                            if (values[24] == "" || values[24] == null)
+                            {
+                                data.Date_of_electronic_auction = "Нет данных";
+
+                            }
+                            else
+                            {
+                                data.Date_of_electronic_auction = values[24];
+                            }
+                        }
+                        catch (Exception)
+                        {
+                            data.Purchase_object = "Ошибка чтения строки";
+                            data.NMCK = 0;
+                            data.Name_of_customer = "Ошибка чтения строки";
+                            data.Hosting_organization = "Ошибка чтения строки";
+                            data.Set_data = "Ошибка чтения строки";
+                            data.Update_data = "Ошибка чтения строки";
+                            data.Purchase_stage = "Ошибка чтения строки";
+                            data.Features_of_placing = "Ошибка чтения строки";
+                            data.Start_data = "Ошибка чтения строки";
+                            data.End_data = "Ошибка чтения строки";
+
+
+
+                            if (values[24] == "" || values[24] == null)
+                            {
+                                data.Date_of_electronic_auction = "Нет данных";
+
+                            }
+                            else
+                            {
+                                data.Date_of_electronic_auction = "Ошибка чтения строки";
+                            }
+                        }
+                       
 
                         // Продолжайте аналогично для других свойств вашей модели
 
