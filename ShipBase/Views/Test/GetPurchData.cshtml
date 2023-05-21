@@ -1,6 +1,6 @@
 ﻿@model ShipBase.Domain.SectionOne.ViewModels.Purch.PurchViewModel
 
-<form asp-controller="Test" asp-action="Create" enctype="multipart/form-data" id="formCreatePurch">
+<form id="formSavePurch">
 
     <div asp-validation-summary="All" style="font-size:23px; font-family:Impact, serif" class="text-danger text-center"></div>
     <div class="row">
@@ -60,8 +60,8 @@
             <label asp-for="@Model.End_data" class="col-form-label">Дата окончания</label>
             <input type="date" class="form-control" asp-for="@Model.End_data" />
         </div>
- 
-   
+
+
         <div class="form-group col-md-4">
             <label asp-for="@Model.Date_of_electronic_auction" class="col-form-label">Дата проведения электронного аукциона</label>
             <input type="number" class="form-control" asp-for="@Model.Date_of_electronic_auction" />
@@ -74,3 +74,36 @@
         color: black;
     }
 </style>
+
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+<script>
+
+
+
+
+
+    $('#saveBtn').on('click', function () {
+        const data = $('#formSavePurch').serialize()
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Save","Purch")',
+            data: data,
+            success: function (data) {
+                Swal.fire({
+                    title: 'Информация',
+                    text: data.description,
+                    icon: 'success',
+                    confirmButtonText: 'Окей'
+                })
+            },
+            error: function (response) {
+                Swal.fire({
+                    title: 'Информация',
+                    text: response.responseJSON.errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'Окей'
+                })
+            }
+        })
+    });
+</script>

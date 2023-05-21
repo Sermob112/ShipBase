@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using ShipBase.DAL;
 using ShipBase.Domain.SectionOne.Extensions;
+using ShipBase.Domain.SectionOne.ViewModels.Purch;
 using ShipBase.Domain.SectionOne.ViewModels.PurchasingData;
 using ShipBase.Service.SectionOne.Implementations;
 using ShipBase.Service.SectionOne.Interfaces;
@@ -47,25 +48,39 @@ namespace ShipBase.Controllers
 
             return View(/*result*/);
         }
+        [HttpGet]
+        public IActionResult CreateFromFile() => PartialView();
         [HttpPost]
-        public async Task<IActionResult> Create(IFormFile file)
+        public async Task<IActionResult> CreateFromFile(IFormFile file)
         {
       
-                var response = await _purchaservice.Create(file);
+                var response = await _purchaservice.CreateFromFile(file);
                 if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
                 {
                 return RedirectToAction("GetPurchs");
+                    }
+            else { 
+                return Json(new { description = response.Description }); 
             }
-            else { return Json(new { description = response.Description }); }
-
-  
-
         }
-
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create() => PartialView();
+
+        [HttpPost]
+        public async Task<IActionResult> Create(PurchViewModel model)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                var response = await _purchaservice.Create(model);
+                if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
+                {
+                    return Json(new { description = response.Description });
+                }
+                return BadRequest(new { errorMessage = response.Description });
+            }
+            var errorMessage = ModelState.Values
+                .SelectMany(v => v.Errors.Select(x => x.ErrorMessage)).ToList().Join();
+            return StatusCode(StatusCodes.Status500InternalServerError, new { errorMessage });
         }
 
         [HttpGet]
@@ -77,6 +92,62 @@ namespace ShipBase.Controllers
                 return View(response.Data);
             }
             return View("Error", $"{response.Description}");
+        }
+
+        public async Task<IActionResult> Delete(long id)
+        {
+            var response = await _purchaservice.Delete(id);
+            if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
+            {
+                return RedirectToAction("GetPurchs");
+            }
+            return View("Error", $"{response.Description}");
+        }
+
+        [HttpGet]
+        public async Task<ActionResult> GetPurchData(long id, bool isJson)
+        {
+            var response = await _purchaservice.GetPurchData(id);
+            if (isJson)
+            {
+                return Json(response.Data);
+            }
+            return PartialView("GetPurchData", response.Data);
+        }
+        [HttpPost]
+        public async Task<IActionResult> GetPurchData(string term)
+        {
+            var response = await _purchaservice.GetPurchData(term);
+            return Json(response.Data);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(PurchViewModel viewModel)
+        {
+
+
+            ModelState.Remove("Id");
+
+            if (ModelState.IsValid)
+            {
+                if (viewModel.Id == 0)
+                {
+
+                    await _purchaservice.Create(viewModel/* imageData*/);
+                }
+                else
+                {
+                    await _purchaservice.Edit(viewModel.Id, viewModel);
+                }
+            }
+            else
+            {
+                var errorMessage = ModelState.Values
+            .SelectMany(v => v.Errors.Select(x => x.ErrorMessage)).ToList().Join();
+                return StatusCode(StatusCodes.Status500InternalServerError, new { errorMessage });
+            }
+
+            return RedirectToAction("GetPurchDatas");
         }
     }
 }

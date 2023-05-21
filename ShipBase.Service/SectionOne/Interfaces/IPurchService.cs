@@ -15,8 +15,14 @@ namespace ShipBase.Service.SectionOne.Interfaces
     {
 
         IBaseResponse<List<Purch>> GetPurchasingDatas();
- 
 
-        Task<IBaseResponse<Purch>> Create(IFormFile filePath);
+        Task<IBaseResponse<Purch>> CreateFromFile(IFormFile filePath);
+
+        Task<IBaseResponse<Purch>> Create(PurchViewModel purch);
+        Task<IBaseResponse<bool>> Delete(long id);
+
+        Task<IBaseResponse<Purch>> Edit(long id, PurchViewModel model);
+        Task<IBaseResponse<PurchViewModel>> GetPurchData(long id);
+        Task<BaseResponse<Dictionary<long, string>>> GetPurchData(string term);
     }
 }

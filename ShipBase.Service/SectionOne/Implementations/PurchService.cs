@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using ShipBase.DAL.SectionOne.Interfaces;
 using ShipBase.DAL.SectionOne.Repositories;
 using ShipBase.Domain.SectionOne.Entity;
 using ShipBase.Domain.SectionOne.Enum;
 using ShipBase.Domain.SectionOne.Response;
 using ShipBase.Domain.SectionOne.ViewModels.Purch;
+using ShipBase.Domain.SectionOne.ViewModels.PurchasingData;
 using ShipBase.Service.SectionOne.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -24,7 +26,62 @@ namespace ShipBase.Service.SectionOne.Implementations
             _purchRepository = purchRepository;
 
         }
-        public async Task<IBaseResponse<Purch>> Create(IFormFile filePath)
+
+        public async Task<IBaseResponse<Purch>> Create(PurchViewModel purch)
+        {
+            try
+            {
+                var user = await _purchRepository.GetAll().FirstOrDefaultAsync(x => x.Id == purch.Id);
+                if (user != null)
+                {
+                    return new BaseResponse<Purch>()
+                    {
+                        Description = "Закупка с таким номером уже есть",
+                        StatusCode = StatusCode.UserAlreadyExists
+                    };
+                }
+
+
+               
+                var data = new Purch()
+                {
+                    Federal_law = purch.Federal_law,
+                    Id = purch.Id,
+                    Method_of_purchasing = purch.Method_of_purchasing,
+                    Purchase_object = purch.Purchase_object,
+                    NMCK = Convert.ToDouble(purch.NMCK),
+                    Name_of_customer = purch.Name_of_customer,
+                    Hosting_organization = purch.Hosting_organization,
+                    Set_data = purch.Set_data,
+                    Update_data = purch.Update_data,
+                    Purchase_stage = purch.Purchase_stage,
+                    Features_of_placing = purch.Features_of_placing,
+                    Start_data = purch.Start_data,
+                    End_data = purch.End_data,
+                    Date_of_electronic_auction = purch.Date_of_electronic_auction,
+
+                };
+                await _purchRepository.Create(data);
+
+                return new BaseResponse<Purch>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = data
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Purch>()
+                {
+                    Description = $"[Create] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+      
+
+        public async Task<IBaseResponse<Purch>> CreateFromFile(IFormFile filePath)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             try
@@ -126,7 +183,89 @@ namespace ShipBase.Service.SectionOne.Implementations
             }
         }
 
-            public  IBaseResponse<List<Purch>> GetPurchasingDatas()
+        public async Task<IBaseResponse<bool>> Delete(long id)
+        {
+            try
+            {
+                var purch = await _purchRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (purch == null)
+                {
+                    return new BaseResponse<bool>()
+                    {
+                        Description = "Purchase not found",
+                        StatusCode = StatusCode.UserNotFound,
+                        Data = false
+                    };
+                }
+
+                await _purchRepository.Delete(purch);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    StatusCode = StatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>()
+                {
+                    Description = $"[Delete] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<IBaseResponse<Purch>> Edit(long id, PurchViewModel model)
+        {
+            try
+            {
+                var purch = await _purchRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (purch == null)
+                {
+                    return new BaseResponse<Purch>()
+                    {
+                        Description = "Purchasing Data not found",
+                        StatusCode = StatusCode.CarNotFound
+                    };
+                }
+
+                purch.Federal_law = model.Federal_law;
+                purch.Id = model.Id;
+                purch.Method_of_purchasing = model.Method_of_purchasing;
+                purch.Purchase_object = model.Purchase_object;
+                purch.NMCK = Convert.ToDouble(model.NMCK);
+                purch.Name_of_customer = model.Name_of_customer;
+                purch.Hosting_organization = model.Hosting_organization;
+                purch.Set_data = model.Set_data;
+                purch.Update_data = model.Update_data;
+                purch.Purchase_stage = model.Purchase_stage;
+                purch.Features_of_placing = model.Features_of_placing;
+                purch.Start_data = model.Start_data;
+                purch.End_data = model.End_data;
+                purch.Date_of_electronic_auction = purch.Date_of_electronic_auction;
+
+                await _purchRepository.Update(purch);
+
+
+                return new BaseResponse<Purch>()
+                {
+                    Data = purch,
+                    StatusCode = StatusCode.OK,
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Purch>()
+                {
+                    Description = $"[Edit] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+
+        public  IBaseResponse<List<Purch>> GetPurchasingDatas()
             {
                 try
                 {
@@ -157,6 +296,95 @@ namespace ShipBase.Service.SectionOne.Implementations
                 }
 
             }
+
+        public async Task<IBaseResponse<PurchViewModel>> GetPurchData(long id)
+        {
+            try
+            {
+                var purch = await _purchRepository.GetAll().FirstOrDefaultAsync(x => x.Id == id);
+                if (purch == null)
+                {
+                    return new BaseResponse<PurchViewModel>()
+                    {
+                        Description = "Закупка не найдена",
+                        StatusCode = StatusCode.UserNotFound
+                    };
+                }
+
+                var data = new PurchViewModel()
+                {
+                    Federal_law = purch.Federal_law,
+                    Id = purch.Id,
+                    Method_of_purchasing = purch.Method_of_purchasing,
+                    Purchase_object = purch.Purchase_object,
+                    NMCK = Convert.ToDouble(purch.NMCK),
+                    Name_of_customer = purch.Name_of_customer,
+                    Hosting_organization = purch.Hosting_organization,
+                    Set_data = purch.Set_data,
+                    Update_data = purch.Update_data,
+                    Purchase_stage = purch.Purchase_stage,
+                    Features_of_placing = purch.Features_of_placing,
+                    Start_data = purch.Start_data,
+                    End_data = purch.End_data,
+                    Date_of_electronic_auction = purch.Date_of_electronic_auction,
+
+
+                };
+
+                return new BaseResponse<PurchViewModel>()
+                {
+                    StatusCode = StatusCode.OK,
+                    Data = data
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<PurchViewModel>()
+                {
+                    Description = $"[GetPurchData] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
         }
+
+        public async Task<BaseResponse<Dictionary<long, string>>> GetPurchData(string term)
+        {
+            var baseResponse = new BaseResponse<Dictionary<long, string>>();
+            try
+            {
+                var purch = await _purchRepository.GetAll()
+                    .Select(x => new PurchViewModel()
+                    {
+                        Federal_law = x.Federal_law,
+                        Id = x.Id,
+                        Method_of_purchasing = x.Method_of_purchasing,
+                        Purchase_object = x.Purchase_object,
+                        NMCK = Convert.ToDouble(x.NMCK),
+                        Name_of_customer = x.Name_of_customer,
+                        Hosting_organization = x.Hosting_organization,
+                        Set_data = x.Set_data,
+                        Update_data = x.Update_data,
+                        Purchase_stage = x.Purchase_stage,
+                        Features_of_placing = x.Features_of_placing,
+                        Start_data = x.Start_data,
+                        End_data = x.End_data,
+                        Date_of_electronic_auction = x.Date_of_electronic_auction,
+                    })
+                    .Where(x => EF.Functions.Like(x.Purchase_object, $"%{term}%"))
+                    .ToDictionaryAsync(x => x.Id, t => t.Purchase_object);
+
+                baseResponse.Data = purch;
+                return baseResponse;
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Dictionary<long, string>>()
+                {
+                    Description = ex.Message,
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
+    }
     }
 
