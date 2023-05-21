@@ -147,7 +147,7 @@ namespace ShipBase.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, new { errorMessage });
             }
 
-            return RedirectToAction("GetPurchDatas");
+            return RedirectToAction("GetPurchs");
         }
     }
 }
