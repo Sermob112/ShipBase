@@ -29,6 +29,8 @@ namespace ShipBase.DAL
         public DbSet<PurchasingData> PurchasingDatas { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
+
+        public DbSet<Purch> Purches{ get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>(builder =>
@@ -56,11 +58,13 @@ namespace ShipBase.DAL
                
             });
 
-            
 
-           
+            modelBuilder.Entity<Purch>(builder =>
+            {
+                builder.ToTable("Purch").HasKey(x => x.Id);
+            });
 
-            modelBuilder.Entity<Profile>(builder =>
+                modelBuilder.Entity<Profile>(builder =>
             {
                 builder.ToTable("Profiles").HasKey(x => x.Id);
 
