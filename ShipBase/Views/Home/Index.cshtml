@@ -11,7 +11,7 @@
         <div class="card-body">
             <h5 class="card-title text-center">Добро пожаловать на сайт Базы данных судостроения</h5>
             <p class="card-text">
-               На этом сайте пока ничего нет, но скоро появится
+                Здесь вы можете ознакомиться с закупками на строительство объектов морской техники, которые вас интересуют
             </p>
         </div>
     </div>
@@ -22,34 +22,34 @@
             </p>
 }
     
-    <div style="padding: 10px;"></div>
-<div class="card">
-  <div class="card-body">
-    <h5 class="card-title">РАЗДЕЛ ДЛЯ ЗАГЛУШКИ</h5>
-    <p class="card-text">
-      ЗАГЛУШКА
-    </p>
-    <a href="#" class="card-link">Card link</a>
-    <a href="#" class="card-link">Another link</a>
-  </div>
-</div>
+<div style="padding: 10px;"></div>
+@*    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">РАЗДЕЛ ДЛЯ ЗАГЛУШКИ</h5>
+            <p class="card-text">
+                ЗАГЛУШКА
+            </p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+        </div>
+    </div>*@
 
 <div style="padding: 10px;"></div>
-<div class="card">
-  <div class="card-body">
-            <h5 class="card-title">РАЗДЕЛ ДЛЯ ТАБЛИЦЫ</h5>
-  </div>
-  <ul class="list-group list-group-flush" id="ulListId">
-    <li class="list-group-item">Строка 1 </li>
-            <li class="list-group-item">Строка 1</li>
-            <li class="list-group-item">Строка 2</li>
-            <li class="list-group-item">Строка 3</li>
-  </ul>
-  <div class="card-body">
-    <button class="btn btn-danger" id="btnHideId">Скрыть</button>
-    <button class="btn btn-primary" id="btnShowId">Показать</button>
-  </div>
+@*<div class="card">
+    <div class="card-body">
+        <h5 class="card-title">РАЗДЕЛ ДЛЯ ТАБЛИЦЫ</h5>
     </div>
+    <ul class="list-group list-group-flush" id="ulListId">
+        <li class="list-group-item">Строка 1 </li>
+        <li class="list-group-item">Строка 1</li>
+        <li class="list-group-item">Строка 2</li>
+        <li class="list-group-item">Строка 3</li>
+    </ul>
+    <div class="card-body">
+        <button class="btn btn-danger" id="btnHideId">Скрыть</button>
+        <button class="btn btn-primary" id="btnShowId">Показать</button>
+    </div>
+</div>*@
 }
 else
 {
@@ -61,6 +61,9 @@ else
             <blockquote class="blockquote mb-0">
                 <p>Для просмотра контента вы должны авторизоваться</p>
             </blockquote>
+            <div class="d-grid gap-2 d-md-block" style="margin:0 auto;">
+                <a asp-controller="Account" asp-action="Login" class="btn btn-primary" type="button">Авторизироваться</a>
+            </div>
         </div>
     </div>
     

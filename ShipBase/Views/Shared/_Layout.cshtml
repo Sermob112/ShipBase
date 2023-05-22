@@ -116,7 +116,7 @@
                     </li>
 
                     <form method="post" asp-controller="Account" asp-action="Logout">
-                        <input class="btn btn-danger rounded" style="font-family:'Comic Sans MS'; font-weight: bold; font-size:20px;" type="submit" value="Выход" />
+                        <input class="btn btn-danger rounded" style="font-family:'Segoe UI'; font-weight: bold; font-size:20px;" type="submit" value="Выход" />
                     </form>
 
                    
@@ -138,7 +138,7 @@
                 </div>
                 <div class="modal-body"></div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-close btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                    <button type="button" class="btn btn-close btn-secondary" data-bs-dismiss="modal" id="closeBtn">Закрыть</button>
                     @if (User.IsInRole("Admin"))
                     {
                         <button type="button" class="btn btn-primary" id="saveBtn">Сохранить</button>

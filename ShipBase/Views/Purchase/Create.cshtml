@@ -8,49 +8,59 @@
 
     <div asp-validation-summary="All" style="font-size:23px; font-family:Impact, serif" class="text-danger text-center"></div>
     <div class="row">
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label asp-for="@Model.Id" class="col-form-label">Номер закупки</label>
             <input type="text" class="form-control" asp-for="@Model.Id">
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label asp-for="@Model.Purchase_stage" class="col-form-label">Этап закупки</label>
             <input type="text" class="form-control" asp-for="@Model.Purchase_stage">
         </div>
-        <div class="form-group col-md-4">
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
             <label asp-for="@Model.Num_Of_Applications" class="col-form-label">Количество заявок</label>
             <input class="form-control" asp-for="@Model.Num_Of_Applications" />
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label asp-for="@Model.Method_of_purchasing" class="col-form-label">Метод закупки</label>
             <input type="text" class="form-control" asp-for="@Model.Method_of_purchasing" />
         </div>
-        <div class="form-group col-md-4">
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
             <label asp-for="@Model.Start_data" class="col-form-label">Дата начала</label>
             <input type="date" class="form-control" asp-for="@Model.Start_data" />
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label asp-for="@Model.End_data" class="col-form-label">Дата окончания</label>
             <input type="date" class="form-control" asp-for="@Model.End_data" />
         </div>
-        <div class="form-group col-md-4">
-            <label asp-for="@Model.NMCK" class="col-form-label">НМСК</label>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label asp-for="@Model.NMCK" class="col-form-label">НМЦК</label>
             <input type="text" class="form-control" asp-for="@Model.NMCK" />
         </div>
-        <div class="form-group col-md-4">
+        <div class="form-group col-md-6">
             <label asp-for="@Model.Federal_law" class="col-form-label">Федеральный закон</label>
             <input type="text" class="form-control" asp-for="@Model.Federal_law" />
         </div>
-        <div class="form-group col-md-4">
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
             <label asp-for="@Model.Num_of_ships" class="col-form-label">Количетво кораблей</label>
             <input type="number" class="form-control" asp-for="@Model.Num_of_ships" />
         </div>
-        <div class="form-group col-md-4">
-            <label asp-for="@Model.Purchase_object" class="col-form-label">Объект закупки</label>
-            <input type="text" class="form-control" asp-for="@Model.Purchase_object" />
-        </div>
-  
-
     </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label asp-for="@Model.Purchase_object" class="col-form-label">Объект закупки</label>
+            @*<input type="text" class="form-control" asp-for="@Model.Purchase_object" />*@
+            <textarea type="text" class="form-control" asp-for="@Model.Purchase_object"></textarea>
+        </div>
+    </div>
+
 </form>
 
 <script src="~/lib/select2/js/select2.full.min.js"></script>

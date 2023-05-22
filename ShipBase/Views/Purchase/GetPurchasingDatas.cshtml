@@ -77,7 +77,6 @@
                 <div class="card col-md-12">
                     <div class="card-body">
                         <h5 class="card-title text-center">На этом сайте пока ничего нет, но сукоро появится</h5>
-                      
                     </div>
                 </div>
             }
@@ -131,6 +130,19 @@
                     })
                 }
             })
+        });
+
+        $('#closeBtn').on('click', function () {
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Close")',
+                success: function (response) {
+                    modal.modal('hide')
+                },
+                failure: function () {
+
+                }
+            });
         });
     </script>
 }
