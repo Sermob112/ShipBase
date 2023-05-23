@@ -14,6 +14,7 @@ namespace ShipBase
         {
 
             services.AddScoped<IBaseRepository<User>, UserRepository>();
+            services.AddScoped<IBaseRepository<Purch>, PurchRepository>();
             services.AddScoped<IBaseRepository<Profile>, ProfileRepository>();
             services.AddScoped<IBaseRepository<Customer>, CustomerRepository>();
             services.AddScoped<IBaseRepository<PurchasingData>, PurchasingDataRepository>();
@@ -25,6 +26,7 @@ namespace ShipBase
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IPurchService, PurchService>();
             services.AddScoped<IPurchasingDataService, PurchasingDataService>();
         }
     }

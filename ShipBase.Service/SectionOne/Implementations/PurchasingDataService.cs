@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using ShipBase.DAL.SectionOne.Interfaces;
 using ShipBase.DAL.SectionOne.Repositories;
@@ -27,7 +28,62 @@ namespace ShipBase.Service.SectionOne.Implementations
             _customerRepository = customerRepository;
             _purchasingDataRepository = purchasingDataRepository;
         }
+        public async Task<IBaseResponse<PurchasingData>> ReadFromFile(IFormFile filePath)
+        {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+            try
+            {
+                var data = new PurchasingData();
+                using (StreamReader reader = new StreamReader(filePath.OpenReadStream(), Encoding.GetEncoding("Windows-1251")))
+                {
+                    string line;
+                    bool isFirstLine = true;
 
+                    while ((line = reader.ReadLine()) != null)
+                    {
+                        if (isFirstLine)
+                        {
+                            isFirstLine = false;
+                            continue; // Пропускаем первую строку
+                        }
+
+                        string[] values = line.Split(';');
+
+                        data = new PurchasingData()
+                        {
+                            Federal_law = int.Parse(values[0]),
+                            Id = long.Parse(values[1].Replace("№", "")),
+                            Method_of_purchasing = values[2],
+                            Purchase_object = values[3],
+                            Purchase_stage = values[4]
+
+
+
+                        };
+
+
+                       
+
+                        await _purchasingDataRepository.Create(data);
+
+                    }
+                    return new BaseResponse<PurchasingData>()
+                    {
+                        StatusCode = StatusCode.OK,
+                        Data = data
+                    };
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<PurchasingData>()
+                {
+                    Description = $"[Create] : {ex.Message}",
+                    StatusCode = StatusCode.InternalServerError
+                };
+            }
+        }
 
 
         public async Task<IBaseResponse<PurchasingData>> Create(PurchasingDataCreateViewModel purch)

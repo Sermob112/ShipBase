@@ -1,4 +1,4 @@
-﻿@model List<ShipBase.Domain.SectionOne.Entity.PurchasingData>
+﻿@model List<ShipBase.Domain.SectionOne.ViewModels.PurchasingData.AllDataViewModel>
 
 <table class="table">
     <thead>
@@ -19,17 +19,9 @@
         @foreach (var purch in Model)
         {
             <tr>
-                <td>@purch.Id</td>
-                <td>@purch.Purchase_stage</td>
-                <td>@purch.Num_Of_Applications</td>
-                <td>@purch.Method_of_purchasing</td>
-                <td>@purch.Start_data</td>
-                <td>@purch.End_data</td>
-                <td>@purch.NMCK</td>
-                <td>@purch.Federal_law</td>
-                <td>@purch.Num_of_ships</td>
+                <td>@purch.Name_of_organization</td>
                 <td>@purch.Purchase_object</td>
-                <td>@purch.Customers.Count()</td>
+           
             </tr>
         }
     </tbody>
