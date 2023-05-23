@@ -5,59 +5,71 @@
     ViewBag.Title = "Пользователи";
 }
 
-<div class="card col-md-12" style="margin: 10px;">
-    <div class="card-buttons-group">
+<div class="col-md-12" style="margin: 0 auto; width:25%; left:1.75rem;">
+    <div class="">
         @if (User.IsInRole("Admin"))
         {
-            <button class='btn btn-success' id='addUserId'>Добавить</button>   
+            <button class='btn btn-success' id='addUserId'>Добавить пользователя</button>   
         }
     </div>
 </div>
 
 
-
-<div style="padding: 10px;"></div>
-<div class="card col-md-12">
-    <table class="table table-striped">
-        <thead class="table-light">
-        <tr>
-            <th scope="col">Id</th>
-            <th scope="col">Логин</th>
-            <th scope="col">Роль</th>
-            <th scope="col">#</th>
-            <th scope="col">#</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var user in @Model)
-        {
+<div style="">
+    <div style="padding: 10px;"></div>
+    <div class="card col-md-12">
+        <table class="table table-striped">
+            <thead class="table-light">
             <tr>
-                <td>@user.Id</td>
-                <td>@user.Name</td>
-                <td>@user.Role</td>
-                <td>
-                        <form asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
-                        <button type="submit" class="btn btn-sm btn-danger">
-                            Удалить
-                        </button>
-                    </form>
-                </td>
-                <td>
-                    @*<button type="submit" class="btn btn-sm btn-primary" onclick="openModal({ url: '@Url.Action("Update", "User")', data: @user.Id })">
-                        Посмотреть
-                    </button>*@
-                       @* <button class='btn btn-sm btn-primary' id='UpdateUserId'>Обновить</button>*@
-                        <button class="btn btn-primary" onclick="openModal({ url: '/Admin/Update', data: '@user.Id' })"
-                            data-toggle="ajax-modal" data-target="Modal">
-                            Редактировать
-                        </button>
-
-                </td>
+                <th scope="col">Id</th>
+                <th scope="col">Логин</th>
+                <th scope="col">Роль</th>
+              @*<th scope="col">#</th>
+                <th scope="col">#</th>*@
             </tr>
-        }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+            @foreach (var user in @Model)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.Role</td>
+                    <td style="margin-left:30px;">
+                            <div style="margin-left:2.5rem;">
+                                <button class="btn btn-primary" style="margin-bottom:0.3rem;" onclick="openModal({ url: '/Admin/Update', data: '@user.Id' })"
+                                    data-toggle="ajax-modal" data-target="Modal">
+                                    Редактировать
+                                </button>
+                                <form asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
+                                    <button type="submit" class="btn btn-sm btn-danger" style="width: 8.4rem;">
+                                        Удалить
+                                    </button>
+                                </form>
+                            </div>
+                        </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+@*    @foreach (var user in @Model)
+    {
+        <div style="">
+            <button class="btn btn-primary" style="margin-bottom:0.3rem;" onclick="openModal({ url: '/Admin/Update', data: '@user.Id' })"
+                data-toggle="ajax-modal" data-target="Modal">
+                Редактировать
+            </button>
+            <form asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Id" method="post">
+                <button type="submit" class="btn btn-sm btn-danger" style="width: 8.4rem;">
+                    Удалить
+                </button>
+            </form>
+        </div>
+    }*@
 </div>
+
 
 @section pageScripts
     {

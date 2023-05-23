@@ -4,7 +4,7 @@
 
 .navbar .dropdown-menu {
     border: none;
-    background-color: black !important; /*Смена цвета #2C3539*/
+    background-color: #7fc7ff !important; /*Смена цвета #2C3539*/
 }
 
 @media screen and (min-width: 992px) {
@@ -26,11 +26,11 @@
         width: 100%;
         left: 0;
         right: 0;
-        top: 45px;
+        top: 75px;
         display: block;
         visibility: hidden;
         opacity: 0;
-        transition: visibility 0s, opacity 0.3s linear;
+        transition: visibility 0.2s, opacity 0.2s linear;
     }
 
     

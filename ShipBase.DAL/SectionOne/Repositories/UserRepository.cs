@@ -21,6 +21,7 @@ namespace ShipBase.DAL.SectionOne.Repositories
 
         public async Task Delete(User entity)
         {
+            //Blok
             _db.Users.Remove(entity);
             await _db.SaveChangesAsync();
         }
