@@ -41,7 +41,7 @@
             </tr>
         </thead>
         <tbody>
-            @try
+            @if (Model != null && Model.Any())
             {
 
 
@@ -85,7 +85,7 @@
                     </tr>
                 }
             }
-            catch (Exception)
+            else 
             {
 
                 <div class="card col-md-12">
