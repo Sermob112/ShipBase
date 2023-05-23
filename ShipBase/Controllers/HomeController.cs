@@ -1,5 +1,5 @@
-﻿using ShipBase.Domain.Entity;
-using ShipBase.Service.Interfaces;
+﻿using ShipBase.Domain.SectionOne.Entity;
+using ShipBase.Service.SectionOne.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 

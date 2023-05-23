@@ -1,0 +1,68 @@
+﻿@model ShipBase.Domain.SectionOne.ViewModels.Customer.СustomerViewModel
+@{
+    var textTitle = Model?.Id == 0 ? "Изменение данных" : "Добавление данных";
+}
+
+<form asp-controller="Customer" asp-action="Save" enctype="multipart/form-data" id="formSaveCustomer">
+    <input asp-for="Id" hidden />
+    <div asp-validation-summary="All" style="font-size:23px; font-family:Impact, serif" class="text-danger text-center"></div>
+    <div class="row">
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.Name_of_organization" class="col-form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.Name_of_organization">
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.OGRN" class="col-form-label"></label>
+            <input class="form-control" asp-for="@Model.OGRN" />
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.INN" class="col-form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.INN" />
+        </div>
+        <div class="form-group col-md-4">
+            <label asp-for="@Model.KPP" class="col-form-label"></label>
+            <input type="text" class="form-control" asp-for="@Model.KPP" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-12">
+            <label asp-for="@Model.purchasing_id" class="col-form-label"></label>
+            <textarea type="text" class="form-control" asp-for="@Model.purchasing_id"></textarea>
+        </div>
+        </div>
+</form>
+
+<script src="~/lib/select2/js/select2.full.min.js"></script>
+<script>
+   
+    $('#saveBtn').on('click', function () {
+        const data = $('#formSaveCustomer').serialize()
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("Save","Customer")',
+            data: data,
+            success: function (data) {
+                Swal.fire({
+                    title: 'Информация',
+                    text: data.description,
+                    icon: 'success',
+                    confirmButtonText: 'Окей'
+                })
+            },
+            error: function (response) {
+                Swal.fire({
+                    title: 'Информация',
+                    text: response.responseJSON.errorMessage,
+                    icon: 'error',
+                    confirmButtonText: 'Окей'
+                })
+            }
+        })
+    });
+</script>
+
+<style>
+    label {
+        color: black;
+    }
+</style>

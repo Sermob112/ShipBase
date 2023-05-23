@@ -2,15 +2,17 @@
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using ShipBase.Domain.Extensions;
-using ShipBase.Domain.ViewModels.User;
-using ShipBase.Service.Implementations;
-using ShipBase.Service.Interfaces;
+using ShipBase.Domain.SectionOne.Extensions;
+using ShipBase.Domain.SectionOne.ViewModels.User;
+using ShipBase.Service.SectionOne.Implementations;
+using ShipBase.Service.SectionOne.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ShipBase.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
@@ -24,7 +26,7 @@ namespace ShipBase.Controllers
         public async Task<IActionResult> GetUsers()
         {
             var response = await _userService.GetUsers();
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
             {
                 return View(response.Data);
             }
@@ -37,7 +39,7 @@ namespace ShipBase.Controllers
         public async Task<IActionResult> DeleteUser(long id)
         {
             var response = await _userService.DeleteUser(id);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
             {
                 return RedirectToAction("GetUsers");
             }
@@ -59,7 +61,7 @@ namespace ShipBase.Controllers
                 return PartialView();
 
             var response = await _userService.GetUser(id);
-            if (response.StatusCode == Domain.Enum.StatusCode.OK)
+            if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
             {
                 return PartialView(response.Data);
             }
@@ -73,7 +75,7 @@ namespace ShipBase.Controllers
             if (ModelState.IsValid)
             {
                 var response = await _userService.Create(model);
-                if (response.StatusCode == Domain.Enum.StatusCode.OK)
+                if (response.StatusCode == Domain.SectionOne.Enum.StatusCode.OK)
                 {
                     return Json(new { description = response.Description });
                 }

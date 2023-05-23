@@ -1,0 +1,28 @@
+﻿@model List<ShipBase.Domain.SectionOne.ViewModels.PurchasingData.AllDataViewModel>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">номер закупки</th>
+            <th scope="col">этап закупки</th>
+            <th scope="col">количество заявок</th>
+            <th scope="col">cпособ осуществления закупки</th>
+            <th scope="col">датa начала осуществления закупки</th>
+            <th scope="col">датa оканчания осуществления закупки</th>
+            <th scope="col">Н(М)ЦК</th>
+            <th scope="col">номер Федерального закона</th>
+            <th scope="col">количество кораблей</th>
+            <th scope="col">название объекта</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var purch in Model)
+        {
+            <tr>
+                <td>@purch.Name_of_organization</td>
+                <td>@purch.Purchase_object</td>
+           
+            </tr>
+        }
+    </tbody>
+</table>
