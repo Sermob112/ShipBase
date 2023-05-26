@@ -149,5 +149,16 @@ namespace ShipBase.Controllers
 
             return RedirectToAction("GetPurchs");
         }
+
+        public IActionResult DownloadReport()
+        {
+            _purchaservice.GenerateReport(); // Вызываем метод для генерации отчета
+
+            var filePath = "test.xlsx";
+            var fileBytes = System.IO.File.ReadAllBytes(filePath);
+            var fileName = "Report.xlsx";
+
+            return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", fileName);
+        }
     }
 }

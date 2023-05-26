@@ -75,5 +75,22 @@
     <None Include="Test\test3.xlsx" />
     <None Include="Test\tester.csv" />
   </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ShipBase.DAL\ShipBase.DAL.csproj">
+      <Project>{e786d966-c745-4198-bf60-f9fe82c6ffb2}</Project>
+      <Name>ShipBase.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShipBase.Service\ShipBase.Service.csproj">
+      <Project>{547a3f07-8e83-476a-b125-5d37e858ced3}</Project>
+      <Name>ShipBase.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ShopBase.Domain\ShipBase.Domain.csproj">
+      <Project>{f50fc822-2b62-43aa-9e8e-4c028af4ffd1}</Project>
+      <Name>ShipBase.Domain</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using ShipBase.Domain.SectionOne.Entity;
 
 namespace ShipBaseTest
 {
@@ -40,7 +41,7 @@ namespace ShipBaseTest
 
 
             /*Execl метод чтнение почти готовый*/
-            /*ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             string filePath2 = @"C:\\Users\\Sergey\\source\\repos\\ShipBase\\ShipBaseTest\\Test\\Work.xlsx";
             if (File.Exists(filePath2))
             {
@@ -71,7 +72,7 @@ namespace ShipBaseTest
                             else if (col == 3)
                             {
                                 myObject.Method_of_purchasing = cellValue.ToString();
-                             
+
 
                             }
                             else if (col == 4)
@@ -90,7 +91,7 @@ namespace ShipBaseTest
                             // Продолжайте аналогично для других свойств вашего класса
                         }
                     }
-                
+
 
                     // Дальнейшая обработка объекта myObject, содержащего данные из XLSX файла
                 }
@@ -98,7 +99,7 @@ namespace ShipBaseTest
             else
             {
                 Console.WriteLine("Файл не существует.");
-            }*/
+            }
 
 
             Console.ReadLine();
@@ -149,6 +150,25 @@ namespace ShipBaseTest
 
                 return data;
         }
+
+
+        private List<Purch> GetPurchDataFromDatabase()
+        {
+            // Здесь вам нужно добавить код для получения данных из базы данных
+            // и преобразования их в список объектов Purch
+
+            List<Purch> data = new List<Purch>();
+
+            // Пример кода для получения данных из базы данных
+            using (var dbContext = new YourDbContext())
+            {
+                data = dbContext.Purchs.ToList();
+            }
+
+            return data;
+        }
+
+
     }
 
 }

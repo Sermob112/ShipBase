@@ -24,5 +24,6 @@ namespace ShipBase.Service.SectionOne.Interfaces
         Task<IBaseResponse<Purch>> Edit(long id, PurchViewModel model);
         Task<IBaseResponse<PurchViewModel>> GetPurchData(long id);
         Task<BaseResponse<Dictionary<long, string>>> GetPurchData(string term);
+        void GenerateReport();
     }
 }

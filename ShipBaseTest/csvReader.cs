@@ -7,11 +7,19 @@ using System.Threading.Tasks;
 
 namespace ShipBaseTest
 {
-    public class csvReader
+    private List<Purch> GetPurchDataFromDatabase()
     {
-       
+        // Здесь вам нужно добавить код для получения данных из базы данных
+        // и преобразования их в список объектов Purch
 
-        
+        List<Purch> data = new List<Purch>();
 
+        // Пример кода для получения данных из базы данных
+        using (var dbContext = new YourDbContext())
+        {
+            data = dbContext.Purchs.ToList();
+        }
+
+        return data;
     }
 }

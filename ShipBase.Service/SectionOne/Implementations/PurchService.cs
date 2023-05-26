@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
+using OfficeOpenXml;
 using ShipBase.DAL.SectionOne.Interfaces;
 using ShipBase.DAL.SectionOne.Repositories;
 using ShipBase.Domain.SectionOne.Entity;
@@ -385,6 +386,66 @@ namespace ShipBase.Service.SectionOne.Implementations
                 };
             }
         }
+
+        public void GenerateReport()
+        {
+            // Получение данных из базы данных
+            var data = GetPurchDataFromDatabase();
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+            // Создание нового пакета Excel
+            using (var package = new ExcelPackage())
+            {
+                // Добавление нового листа в пакет
+                var worksheet = package.Workbook.Worksheets.Add("Отчет");
+
+                // Запись заголовков столбцов
+                var headers = new string[]
+                {
+                "Federal_law", "Id", "Method_of_purchasing", "Purchase_object", "Name_of_customer",
+                "Hosting_organization", "Set_data", "Update_data", "Purchase_stage", "Features_of_placing",
+                "Start_data", "End_data", "Date_of_electronic_auction"
+                };
+
+                for (var col = 1; col <= headers.Length; col++)
+                {
+                    worksheet.Cells[1, col].Value = headers[col - 1];
+                }
+
+                // Запись данных
+                var row = 2;
+                foreach (var item in data)
+                {
+                    worksheet.Cells[row, 1].Value = item.Federal_law;
+                    worksheet.Cells[row, 2].Value = item.Id;
+                    worksheet.Cells[row, 3].Value = item.Method_of_purchasing;
+                    worksheet.Cells[row, 4].Value = item.Purchase_object;
+                    worksheet.Cells[row, 5].Value = item.Name_of_customer;
+                    worksheet.Cells[row, 6].Value = item.Hosting_organization;
+                    worksheet.Cells[row, 7].Value = item.Set_data;
+                    worksheet.Cells[row, 8].Value = item.Update_data;
+                    worksheet.Cells[row, 9].Value = item.Purchase_stage;
+                    worksheet.Cells[row, 10].Value = item.Features_of_placing;
+                    worksheet.Cells[row, 11].Value = item.Start_data;
+                    worksheet.Cells[row, 12].Value = item.End_data;
+                    worksheet.Cells[row, 13].Value = item.Date_of_electronic_auction;
+
+                    row++;
+                }
+
+                var filePath = "test.xlsx";
+                File.WriteAllBytes(filePath, package.GetAsByteArray());
+            }
+        }
+        private List<Purch> GetPurchDataFromDatabase()
+        {
+            
+            List<Purch> data = new List<Purch>();
+
+            data =   _purchRepository.GetAll().ToList();
+            return data;
+        }
+
+
     }
-    }
+}
 
